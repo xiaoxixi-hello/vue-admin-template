@@ -1,9 +1,10 @@
 <template>
   <div class="login-container">
+    <!-- el-from 组件用于收集表单数据 model 用于收集表单数据 rule 表单验证规则 -->
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">登  录</h3>
       </div>
 
       <el-form-item prop="username">
@@ -41,6 +42,7 @@
         </span>
       </el-form-item>
 
+      <!-- 当点击登录 触发handleLogin事件函数 -->
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
       <div class="tips">
@@ -57,6 +59,7 @@ import { validUsername } from '@/utils/validate'
 
 export default {
   name: 'Login',
+  // 用户名密码的合法性校验 
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
@@ -105,12 +108,18 @@ export default {
         this.$refs.password.focus()
       })
     },
+    // 登录业务 发送用户名密码给后端服务
     handleLogin() {
+      // valid 验证表单元素 用户名密码是否符合规则
       this.$refs.loginForm.validate(valid => {
         if (valid) {
+          // 按钮的loading效果
           this.loading = true
+          // 派发一个action user/login 同时会携带用户名密码 
           this.$store.dispatch('user/login', this.loginForm).then(() => {
+            // 登录成功进行路由的跳转
             this.$router.push({ path: this.redirect || '/' })
+            // loading效果结束
             this.loading = false
           }).catch(() => {
             this.loading = false
@@ -180,7 +189,9 @@ $light_gray:#eee;
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
+  // background-color: $bg;  登录页面背景颜色
+  background: url(~@/assets/bg.jpg);
+  background-size: 100%,100%;
   overflow: hidden;
 
   .login-form {
