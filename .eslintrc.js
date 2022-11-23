@@ -20,8 +20,6 @@ module.exports = {
         "max": 1,
         "allowFirstLine": false,
       },
-      'semi': 0,
-      'indent': ["off", 2],
     }],
     "vue/singleline-html-element-content-newline": "off",
     "vue/multiline-html-element-content-newline":"off",

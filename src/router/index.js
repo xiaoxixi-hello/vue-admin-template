@@ -5,6 +5,7 @@ Vue.use(Router)
 
 /* Layout  框架*/
 import Layout from '@/layout'
+import { title } from '@/settings'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -54,7 +55,40 @@ export const constantRoutes = [
       meta: { title: '首页', icon: 'dashboard' }
     }]
   },
-
+  {
+    // 主路由
+    path: '/product',
+    component: Layout,
+    name: 'Product',
+    meta: { title: '商品管理', icon: 'el-icon-goods' },
+    // 子路由
+    children: [
+      {
+        path: 'trademark',
+        name: 'trademark',
+        component: () => import('@/views/product/tradeMark'),
+        meta: { title: "品牌管理" }
+      },
+      {
+        path: 'attr',
+        name: 'Attr',
+        component: () => import('@/views/product/Attr'),
+        meta: { title: "平台属性管理" }
+      },
+      {
+        path: 'spu',
+        name: 'Spu',
+        component: () => import('@/views/product/Spu'),
+        meta: { title: "Spu管理" }
+      },
+      {
+        path: 'sku',
+        name: 'Sku',
+        component: () => import('@/views/product/Sku'),
+        meta: { title: "Sku管理" }
+      }
+    ]
+  },
   // {
   //   path: '/example',
   //   component: Layout,
@@ -78,16 +112,16 @@ export const constantRoutes = [
   // },
 
 
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+  //       meta: { title: 'External Link', icon: 'link' }
+  //     }
+  //   ]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
