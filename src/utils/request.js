@@ -46,7 +46,7 @@ service.interceptors.response.use(
   response => {
     //  服务器响应
     const res = response.data
-    console.log(res)
+   // console.log(res)
     // if the custom code is not 20000, it is judged as an error.
     // 响应失败 做如下
     if (res.code !== 20000 && res.code !== 200) {

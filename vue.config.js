@@ -43,7 +43,7 @@ module.exports = {
     proxy: {
       // 路径与env.development保持一致
       '/dev-api': {
-        target: 'http://39.98.123.211:8170',
+        target: 'http://gmall-h5-api.atguigu.cn',
         pathRewrite: { '^/dev-api': '' },
       },
     }
