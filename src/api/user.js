@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 路由接口配置
 export function login(data) {
   return request({
-    url: '/admin/acl/index/login',
+    url: '/login',
     method: 'post',
     data
   })
@@ -11,7 +11,7 @@ export function login(data) {
 
 export function getInfo(token) {
   return request({
-    url: '/admin/acl/index/info',
+    url: '/getInfo',
     method: 'get',
     params: { token }
   })

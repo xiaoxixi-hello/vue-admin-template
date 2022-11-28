@@ -32,16 +32,16 @@ const actions = {
   async login({ commit }, userInfo) {
     // 解构出用户名与密码
     const { username, password } = userInfo
-    let result = await login({ username: username.trim(), password: password });
+    const result = await login({ username: username.trim(), password: password })
     // 返回code 2000 成功 做如下
-    if (result.code == 20000) {
+    if (result.code === 200) {
       // 提交 + 存储token
-      commit('SET_TOKEN', result.data.token);
-      setToken(result.data.token);
-      return 'ok';
+      commit('SET_TOKEN', result.token)
+      setToken(result.token)
+      return 'ok'
     } else {
       // 失败 做如下
-      return Promise.reject(new Error('faild'));
+      return Promise.reject(new Error('faild'))
     }
   },
 
@@ -49,17 +49,16 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
-        const { data } = response
-
-        if (!data) {
+        if (!response) {
           return reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar } = data
+        const { name, avatar } = response
 
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
-        resolve(data)
+
+        resolve(response)
       }).catch(error => {
         reject(error)
       })
@@ -96,4 +95,3 @@ export default {
   mutations,
   actions
 }
-

@@ -37,15 +37,15 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    // mock数据 
+    // mock数据
     // before: require('./mock/mock-server.js')
     // 配置代理跨域
     proxy: {
       // 路径与env.development保持一致
       '/dev-api': {
-        target: 'http://gmall-h5-api.atguigu.cn',
-        pathRewrite: { '^/dev-api': '' },
-      },
+        target: 'http://127.0.0.1:8081',
+        pathRewrite: { '': '' }
+      }
     }
   },
   configureWebpack: {

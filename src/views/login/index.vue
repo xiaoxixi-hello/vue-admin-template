@@ -59,7 +59,7 @@ import { validUsername } from '@/utils/validate'
 
 export default {
   name: 'Login',
-  // 用户名密码的合法性校验 
+  // 用户名密码的合法性校验
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
@@ -78,7 +78,7 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: '111111'
+        password: 'admin123'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -115,7 +115,7 @@ export default {
         if (valid) {
           // 按钮的loading效果
           this.loading = true
-          // 派发一个action user/login 同时会携带用户名密码 
+          // 派发一个action user/login 同时会携带用户名密码
           this.$store.dispatch('user/login', this.loginForm).then(() => {
             // 登录成功进行路由的跳转
             this.$router.push({ path: this.redirect || '/' })
