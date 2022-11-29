@@ -9,11 +9,18 @@ export function login(data) {
   })
 }
 
-export function getInfo(token) {
+// 用refresh_token去刷新access_token
+export function checkRefreshToken() {
+  return request({
+    url: '/refresh_token',
+    method: 'get'
+  })
+}
+
+export function getInfo() {
   return request({
     url: '/getInfo',
-    method: 'get',
-    params: { token }
+    method: 'get'
   })
 }
 

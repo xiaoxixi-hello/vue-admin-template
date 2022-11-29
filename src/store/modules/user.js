@@ -1,5 +1,5 @@
-import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { login, logout, getInfo, checkRefreshToken } from '@/api/user'
+import { getToken, setToken, removeToken, setRefreshToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
@@ -37,7 +37,9 @@ const actions = {
     if (result.code === 200) {
       // 提交 + 存储token
       commit('SET_TOKEN', result.token)
+      commit('SET_REFRESH_TOKEN', result.refresh_token)
       setToken(result.token)
+      setRefreshToken(result.refresh_token)
       return 'ok'
     } else {
       // 失败 做如下
@@ -48,7 +50,7 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getInfo(state).then(response => {
         if (!response) {
           return reject('Verification failed, please Login again.')
         }
@@ -74,6 +76,23 @@ const actions = {
         commit('RESET_STATE')
         resolve()
       }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  // accessToken超时
+  handleCheckRefreshToken({ state, commit }) {
+    return new Promise((resolve, reject) => {
+      checkRefreshToken().then(res => {
+        console.log(res)
+        const data = res.data
+        commit('SET_TOKEN', data.token)
+        setToken(data.token)
+
+        resolve()
+      }).catch((error) => {
+        console.log('error.......', error)
         reject(error)
       })
     })
